@@ -3,7 +3,7 @@ import './App.css';
 import CharactersList from './components/CharactersList';
 import logo from './STARWARS.png';
 
-// const pages = ['people/', 'people/?page=2', ]
+const pages = ['people/', 'people/?page=2', ]
 
 class App extends Component {
   constructor() {
@@ -14,17 +14,13 @@ class App extends Component {
     };
   }
 
-  componentDidMount = () => {
-    this.getCharacters(`https://swapi.co/api/${this.state.pages}`);
+  componentDidMount = (pages) => {
+    this.getCharacters(`https://swapi.co/api/${pages || 'people/'}`);
   };
-
   
-  // nextPage = () => {
-  //   this.componentDidMount();
-  //   // this.componentDidMount = () => {
-  //   //   this.getCharacters('https://swapi.co/api/people/?page=2');
-  //   // }
-  // }
+  nextPage = (page) => {
+    this.componentDidMount(page);
+  }
 
   getCharacters = URL => {
     // feel free to research what this code is doing.
@@ -53,7 +49,7 @@ class App extends Component {
             </div>
           <button 
             className="page-btn"
-            // onClick={this.nextPage()}
+            onClick={() => this.nextPage('people/?page=2')}
           >Next</button>
         </div>
       <div className="card-container">
