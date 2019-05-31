@@ -43,7 +43,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="logo-wrapper">
-          <button className="page-btn">Prev</button>
+          <button 
+            className="page-btn"
+            onClick={() => this.nextPage('people/')} 
+          >Prev</button>
             <div>
               <img className="header" src={logo} alt="logo"/>
             </div>
