@@ -1,19 +1,39 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './STARWARS.png';
+import luke from './images/luke-skywalker.jpeg';
+import C3PO from './images/C-3PO.webp';
+import R2D2 from './images/r2-d2.jpeg';
+import dartVader from './images/Darth-Vader.jpeg';
+import leiaOrgana from './images/Leia-Organa.jpg';
+import owenLars from './images/owenlars.jpeg';
+import beruLars from './images/berulars.webp';
+import R5D4 from './images/r5-d4.webp';
+import biggsDark from './images/BiggsDarklighter.webp';
+import obiOne from './images/Obi-Wan-Kenobi.jpeg';
 import uuid from "uuid";
+
+const images = [luke, C3PO, R2D2, dartVader, leiaOrgana, owenLars, beruLars, R5D4, biggsDark, obiOne];
+// const pages = ['people/', 'people/?page=2', ]
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      starwarsChars: []
+      starwarsChars: [],
+      pages: ['people/']
     };
   }
 
+  // componentDidMount(pages) {
+  //   this.getCharacters(`https://swapi.co/api/`);
+  // }
+
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people/');
+    this.getCharacters(`https://swapi.co/api/${this.state.pages}`);
   }
+
+  
 
   getCharacters = URL => {
     // feel free to research what this code is doing.
@@ -42,9 +62,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <div>
-        <img className="header" src={logo} alt="logo"/>
-      </div>
+        <div className="logo-wrapper">
+          <button className="page-btn">Prev</button>
+            <div>
+              <img className="header" src={logo} alt="logo"/>
+            </div>
+          <button 
+            className="page-btn"
+            // onClick={}
+          >Next</button>
+        </div>
       <div className="card-container">
         <CharactersList 
           dataList={this.state.starwarsChars}
@@ -60,7 +87,7 @@ function CharactersList(props) {
     <div className="char-list">
       { 
         props.dataList.map((dataItem, idx) => {
-          return <Character key={uuid()} data={dataItem}/>
+          return <Character key={uuid()} data={dataItem} image={images[idx]}/>
         })    
       }
       
