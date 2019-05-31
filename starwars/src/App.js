@@ -10,16 +10,29 @@ class App extends Component {
     super();
     this.state = {
       starwarsChars: [],
-      pages: ['people/']
+      pages: ['people/', 'people/?page=2', 'people/?page=3', 'people/?page=4', 'people/?page=5'],
+      count: 0
     };
   }
 
   componentDidMount = (pages) => {
     this.getCharacters(`https://swapi.co/api/${pages || 'people/'}`);
   };
+
+  prevPage = (page) => {
+    let newCount = this.state.count !== 0 ? this.state.count - 1 : this.state.count = 0;
+    this.setState({
+      count: newCount,
+    })
+    this.componentDidMount(page[this.state.count]);
+  }
   
   nextPage = (page) => {
-    this.componentDidMount(page);
+    let newCount = this.state.count + 1
+    this.setState({
+      count: newCount,
+    })
+    this.componentDidMount(page[this.state.count]);
   }
 
   getCharacters = URL => {
@@ -45,14 +58,14 @@ class App extends Component {
         <div className="logo-wrapper">
           <button 
             className="page-btn"
-            onClick={() => this.nextPage('people/')} 
+            onClick={() => this.prevPage(this.state.pages)} 
           >Prev</button>
             <div>
               <img className="header" src={logo} alt="logo"/>
             </div>
           <button 
             className="page-btn"
-            onClick={() => this.nextPage('people/?page=2')}
+            onClick={() => this.nextPage(this.state.pages)}
           >Next</button>
         </div>
       <div className="card-container">
