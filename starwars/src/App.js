@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import logo from './STARWARS.png';
+import uuid from "uuid";
 
 class App extends Component {
   constructor() {
@@ -32,10 +34,38 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1 className="Header">React Wars</h1>
+      <div>
+        <img className="header" src={logo} alt="logo"/>
       </div>
+      <div className="card-container">
+        <CharactersList 
+          dataList={this.state.starwarsChars}
+        />
+      </div>
+    </div>
     );
   }
+}
+
+function CharactersList(props) {
+  return(
+    <div className="char-list">
+      { 
+        props.dataList.map((dataItem, idx) => {
+          return <Character key={uuid()} data={dataItem}/>
+        })    
+      }
+      
+    </div>
+  );
+}
+
+function Character(props) {
+  return(
+    <div className="character-card">
+
+    </div>
+  );
 }
 
 export default App;
