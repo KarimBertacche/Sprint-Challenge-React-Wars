@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
+import CharactersList from './components/CharactersList';
+import logo from './STARWARS.png';
+
+const pages = ['people/', 'people/?page=2', ]
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      starwarsChars: []
+      starwarsChars: [],
+      pages: ['people/', 'people/?page=2', 'people/?page=3', 'people/?page=4', 'people/?page=5'],
+      count: 0
     };
   }
 
-  componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people/');
+  componentDidMount = (pages) => {
+    this.getCharacters(`https://swapi.co/api/${pages || 'people/'}`);
+  };
+
+  prevPage = (page) => {
+    let newCount = this.state.count !== 0 ? this.state.count - 1 : this.state.count = 0;
+    this.setState({
+      count: newCount,
+    })
+    this.componentDidMount(page[this.state.count]);
+  }
+  
+  nextPage = (page) => {
+    let newCount = this.state.count + 1
+    this.setState({
+      count: newCount,
+    })
+    this.componentDidMount(page[this.state.count]);
   }
 
   getCharacters = URL => {
@@ -23,17 +45,35 @@ class App extends Component {
       })
       .then(data => {
         this.setState({ starwarsChars: data.results });
+        console.log(data);
       })
       .catch(err => {
         throw new Error(err);
-      });
+      });  
   };
-
+  
   render() {
     return (
       <div className="App">
-        <h1 className="Header">React Wars</h1>
+        <div className="logo-wrapper">
+          <button 
+            className="page-btn"
+            onClick={() => this.prevPage(this.state.pages)} 
+          >Prev</button>
+            <div>
+              <img className="header" src={logo} alt="logo"/>
+            </div>
+          <button 
+            className="page-btn"
+            onClick={() => this.nextPage(this.state.pages)}
+          >Next</button>
+        </div>
+      <div className="card-container">
+        <CharactersList 
+          dataList={this.state.starwarsChars}
+        />
       </div>
+    </div>
     );
   }
 }

@@ -1,8 +1,39 @@
 .App {
   text-align: center;
+  padding: 30px;
 }
-.Header {
-  color: #443e3e;
-  text-shadow: 1px 1px 5px #fff;
+
+.header {
+  width: 200px;
+  background-image: url(./STARWARS.png);
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-btn {
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #282727;
+  border: 3px solid #9e4f60;
+  color: #ddd;
+  font-size: 1.5rem;
+  border-radius: 5px;
+}
+
+.page-btn:hover {
+  background-color: #9e4f60;
+  border: 3px solid #282727;
+  color: #282727;
+}
+
+.card-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 /* write your parent styles in here for your App.js */
